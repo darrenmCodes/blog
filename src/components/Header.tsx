@@ -1,10 +1,10 @@
 'use client';
 
 import Link from 'next/link';
-import { Github, Twitter, Mail, Sun, Moon, Linkedin } from 'lucide-react';
+import { Github, Twitter, Mail, Sun, Moon, Linkedin, type LucideIcon } from 'lucide-react';
 import { useState, useEffect } from 'react';
 
-const SocialLink = ({ href, icon: Icon }: { href: string; icon: React.ComponentType<{ size?: number }> }) => (
+const SocialLink = ({ href, icon: Icon }: { href: string; icon: LucideIcon }) => (
   <a 
     href={href}
     className="text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors p-2"
