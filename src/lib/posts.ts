@@ -2,7 +2,9 @@ import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
 import { remark } from 'remark';
-import html from 'remark-html';
+import remarkRehype from 'remark-rehype';
+import rehypeRaw from 'rehype-raw';
+import rehypeStringify from 'rehype-stringify';
 
 const postsDirectory = path.join(process.cwd(), 'posts');
 
@@ -63,9 +65,11 @@ export async function getPostBySlug(slug: string): Promise<Post | null> {
   const fileContents = fs.readFileSync(fullPath, 'utf8');
   const { data, content } = matter(fileContents);
 
-  // Use remark to convert markdown into HTML string
+  // Use remark to convert markdown into HTML string (with HTML support)
   const processedContent = await remark()
-    .use(html)
+    .use(remarkRehype)
+    .use(rehypeRaw)
+    .use(rehypeStringify)
     .process(content);
   const contentHtml = processedContent.toString();
 
